@@ -88,3 +88,11 @@ globalresults-model-XXX : Provides individual results
 policy-XXXX : List states in the optimal policy and the associated optimal action
 mdptable-XXX : Individual results for specific probability
 tablefile : Global results of the extraction 
+
+## Important notes
+
+Some parameters are hardcoded, such as attack probability, nodes values and migration size for automated result generation.
+For use case reproduction, please use provided files.
+Automated result generation uses parallelization to reduce generation and computation time.
+This may slow your computer.
+Parallelization can be removed by commenting the subprocess line and changing os.system line accordingly
