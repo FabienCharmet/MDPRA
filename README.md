@@ -9,7 +9,7 @@ The installation procedure of the MDP toolbox can be found here:
 
 [https://pymdptoolbox.readthedocs.io/en/latest/index.html] (https://pymdptoolbox.readthedocs.io/en/latest/index.html)
 
-##Installing
+## Installing
 
 ```
 git clone https://github.com/FabienCharmet/MDPRA
@@ -80,7 +80,7 @@ Generate several files:
 ## Automated result generation 
 result_generation.py : Loops to generate several MDP files
 mdp_extraction.py : Loops to determine the optimal policy of all generated files
-result_extraction?py : Generates laTeX code for result exploitation
+result_extraction.py : Generates laTeX code for result exploitation
 
 Generated files:
 statefile: LaTeX diagram for individual node importance
