@@ -1,11 +1,10 @@
 import json,itertools,re,os,sys
 import numpy as np
 import math
-c1=[10,20,30,40]
+c1=[30,40]
 c2=[10,20,30,40]
-size=[5]
-proba=[0.5,0.7,1.0]
-proba=[0.5]
+size=[6]
+proba=[0.5,0.6,0.7,0.8,0.9]
 
 if(len(sys.argv)==2):
     path = sys.argv[1]
@@ -16,13 +15,31 @@ else:
 for i in proba:
     os.system("rm mdptable-p"+str(i))
 
-for cf in c1:
-    for cc in c2:
+os.system("rm tablefile")
+os.system("rm statfile")
+
+# NODE STATS  ONLY WORKS WHEN PARSING ONE SIZE AT A TIME e.g. len(size)==1
+stat_dict = dict.fromkeys(range(size[0]+1),0.0) 
+stat_array = []
+for p1 in proba:
+    pstat_dict = dict.fromkeys(range(size[0]+1),0.0) 
+    gtfile = open("tablefile","a+")
+    insert="\\begin{table*}[]\n"
+    insert+="\\resizebox{\\textwidth}{!}{%\n"
+    insert+="\\begin{tabular}{|l|l|l|l|l|}\n"
+    insert+="\\hline\n"
+    insert+= "\\diagbox{($C_f,C_c$)}{Results} & Monitoring sets & Monitoring reward  & Average reward & Maximum reward \\\\ \hline\n"
+    insert+="\\multicolumn{5}{|l|}{p="+str(p1)+" Attack source : Node 4} \\\\ \hline\n"
+    gtfile.write(insert)
+
+    statfile = open("statfile","w+")
+
+    for cf in c1:
+        for cc in c2:
                 for s in size:
-                    for p1 in proba:
                         if(cc<=cf):
-                            constr = str(s) + "-" + str(cf) + "-" + str(cc) + "-3-short-topo" + str(s) + "m-p" + str(p1)
-                            constr = str(s) + "-" + str(cf) + "-" + str(cc) + "-3-short-topo" + str(s) + "-p" + str(p1)
+                            constr = str(s) + "-" + str(cf) + "-" + str(cc) + "-3-simple2-topo" + str(s) + "m2-p" + str(p1)
+                            # constr = str(s) + "-" + str(cf) + "-" + str(cc) + "-3-simple2-topo" + str(s) + "-p" + str(p1)
                             continueb = True
                             try:
                                 f = open(path+"mdp-results-model-" + constr)
@@ -30,8 +47,7 @@ for cf in c1:
                                 continueb=False
                                 print("Failed to openfile " + path + "mdp-results-model-" + constr )
                             if(continueb):
-
-
+                                print(constr)
                                 myj = json.loads(f.read())
                                 try:
                                     test=myj["GReward"]
@@ -109,17 +125,21 @@ for cf in c1:
                                         #print(r.group(1))
                                         #STORING ALL STATES AND THEIR POLICY
                                         #IS IT A FINAL STATE ? (No budget left)
+                                        # statepolicy.append([line,myj["policy"][i],myj["Value"][i],i])
                                             if(i in SV):
                                                 statepolicy.append([line,myj["policy"][i],myj["Reward"][SV.index(i)],i])
                                                 temp+=myj["distribution"][SV.index(i)]
-                                            if(int(r.group(1))<10 and i in SV):
+                                            if(int(r.group(1))<5 and i in SV):
+                                                # print(myj["distribution"][SV.index(i)])
                                                 monset_state.append([line[:-1],r.group(4),myj["Value"][i],myj["distribution"][SV.index(i)],GReward[SV.index(i)],i,SV.index(i)])
                                                 # except:
                                                     # monset_state.append([line[:-1],r.group(4),myj["Value"][i],myj["distribution"][SV.index(i)],myj["GReward"],i,SV.index(i)])
                                                 # temp+=myj["distribution"][i]
-                                            elif(int(r.group(1))>0 and i in SV) and myj["distribution"][SV.index(i)]>0:
-                                                print(myj["distribution"][SV.index(i)])
-                                                temp+=myj["distribution"][SV.index(i)]
+                                            # elif(int(r.group(1))>5 and i in SV) and myj["distribution"][SV.index(i)]>0:
+                                                # print("erreur")
+                                                # print(myj["distribution"][SV.index(i)])
+                                                # print(r.group(1))
+                                                # temp+=myj["distribution"][SV.index(i)]
                                             i+=1
             
                                 print("Global end distribution: " + str(temp))
@@ -165,8 +185,7 @@ for cf in c1:
                                 # print(len(value_moni))
                                 # PREPARING LATEX TABLE
                                 tablefile = open(path + "mdptable-p"+str(p1),"a+")
-                                insert = "\\diagbox{($C_f,C_c$)}{Results} & Monitoring sets & Monitoring reward  & Average reward & Maximum reward \\\\ \hline"
-                                insert = "("+str(cf)+","+str(cc)+") " 
+                                insert= "("+str(cf)+","+str(cc)+") " 
                                 insert+="& \\begin{tabular}[c]{@{}l@{}} "
                                 for dkey in dict_moni.keys():
                                     insert += " " + str(dkey) + " : " + str(dict_moni[dkey]) + "\\\\"
@@ -177,10 +196,17 @@ for cf in c1:
                                 insert=insert.replace("[","{[}")
                                 insert=insert.replace("]","{]}")
                                 insert=insert.replace("{[}c{]}","[c]")
-
                                 tablefile.write(insert)
+                                gtfile.write(insert)
                                 tablefile.close()
-
+                                
+                                for node in range(1,s+1):
+                                    for dkey in dict_moni.keys():
+                                        if node in eval(dkey):
+                                            stat_dict[node]+=dict_moni[dkey]
+                                            pstat_dict[node]+=reward_moni[dkey]
+                                        pstat_dict[0]+=dict_moni[dkey]
+                                stat_dict[0]+=1
 
 
 
@@ -192,3 +218,56 @@ for cf in c1:
 
 
                                 print("Size = " +str(s) +" Cf = " + str(cf) + " Cc = " + str(cc) + " Average value: " + str(avgR)+ " Maximum reward: " + str(int(max(GReward))) +  "\n")
+    insert="\\end{tabular}%\n"
+    insert+="}\n"
+    insert+="\\caption{Statistical distribution of monitoring sets}\n"
+    insert+="\\label{tab:mdpresults}\n"
+    insert+="\\end{table*}\n\n"
+    gtfile.write(insert)
+    gtfile.close()
+    for i in range(1,s+1):
+        pstat_dict[i]/=pstat_dict[0]
+    stat_array.append(pstat_dict)
+    # statfile.write(str(pstat_dict)+"\n")
+
+for i in range(1,s+1):
+    stat_dict[i]/=stat_dict[0]
+print(stat_dict)
+insert="\\begin{figure}[h]\n"
+insert+="\\begin{tikzpicture}\n"
+insert+="\\begin{axis}[\n"
+insert+="  xlabel={Detection probability},\n"
+insert+="  ylabel={Average reward of the node },\n"
+insert+="  y label style={at={(0.06,0.5)}},\n"
+insert+="  xtick={0.5,0.6,0.7,0.8,0.9,1.0},\n"
+insert+="  legend style={at={(0.5,-0.22)},cells={align=right}, anchor=north,legend columns=3},\n"
+insert+="  cycle list name=black white,\n"
+insert+="  grid style=dashed,\n"
+insert+="]\n\n"
+statfile.write(insert)
+
+
+legend="\\legend{"
+for i in range(1,size[0]+1):
+    legend+="Node " + str(i)+ ", "
+    insert="\\addplot+[]\n"
+    insert+="    coordinates {\n"
+    for p in range(len(proba)):
+        insert+="("+str(proba[p])+","+str(stat_array[p][i])+")"
+    insert+="\n"
+    insert+="};\n\n"
+    statfile.write(insert)
+legend=legend[:-2]
+legend+="}\n"
+
+
+
+
+statfile.write(legend)
+
+insert="\\end{axis}\n"
+insert+="\\end{tikzpicture}\n"
+insert+="\\caption{Node impact - Single source}\n"
+insert+="\\label{fig:nodeimp_single}\n"
+insert+="\\end{figure}\n"
+statfile.write(insert)
