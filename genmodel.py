@@ -474,7 +474,7 @@ runmode=sys.argv[5]
 os.system("rm " + rootdir+"model_log-"+str(N)+"-"+str(c1_init)+"-"+str(c2_init)+"-"+str(mig_size)+"-"+str(runmode)+"-"+str(topofile)+"-p"+str(p)) 
 if(runmode=="normal"):
     alpha=0.7
-    generate(c1_init,c2_init,x_init,y_init,z_init)
+    generate(c1_init,c2_init,x_init,y_init,z_init,0)
 
 
 print("Generation over")
