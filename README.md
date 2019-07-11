@@ -102,3 +102,11 @@ Automated result generation can use parallelization to reduce generation and com
 This may slow your computer.
 Parallelization can be activatin by uncommenting the subprocess line and changing os.system line accordingly
 However, it is highly recommended to limit the number of simultaneous subprocess calls.
+
+## Debugging tools
+showgraph.py is used to represent a graph of the connected states in the optimal policy.
+He uses numpy.loadtxt to load the transition matrix of the optimal policy and verify what which states are connected together.
+In order to be used, specific installation is required using python3 and networkX.
+Moreover, in order to use showgraph.py viextraction.py must be modified to use numpy.savetxt on the transition matrix you want to observe.
+Please note that the labelling process only matches the states names if using P1 as defined in viextraction.py.
+Labelling process will be adapted in the future.
