@@ -83,9 +83,9 @@ Generate several files:
 - mdp-results-XXX : Stores optimal policy, rewards etc.
 
 ## Automated result generation 
-result_generation.py : Loops to generate several MDP files
-mdp_extraction.py : Loops to determine the optimal policy of all generated files
-result_extraction.py : Generates laTeX code for result exploitation
+1. result_generation.py : Loops to generate several MDP files
+2. mdp_extraction.py : Loops to determine the optimal policy of all generated files
+3. result_extraction.py : Generates laTeX code for result exploitation
 
 Generated files:
 statefile: LaTeX diagram for individual node importance
@@ -93,6 +93,11 @@ globalresults-model-XXX : Provides individual results
 policy-XXXX : List states in the optimal policy and the associated optimal action
 mdptable-XXX : Individual results for specific probability
 tablefile : Global results of the extraction 
+
+Files must be used in that order to generate appropriate files.
+Please note that they are currently set on the same parameters to be a working example.
+Changes must be made to adapt to your desired parameters.
+
 
 ## Important notes
 

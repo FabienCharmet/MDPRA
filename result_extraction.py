@@ -38,8 +38,7 @@ for p1 in proba:
         for cc in c2:
                 for s in size:
                         if(cc<=cf):
-                            constr = str(s) + "-" + str(cf) + "-" + str(cc) + "-3-simple2-topo" + str(s) + "m2-p" + str(p1)
-                            # constr = str(s) + "-" + str(cf) + "-" + str(cc) + "-3-simple2-topo" + str(s) + "-p" + str(p1)
+                            constr = str(s) + "-" + str(cf) + "-" + str(cc) + "-3-normal-topo" + str(s) + "-p" + str(p1)
                             continueb = True
                             try:
                                 f = open(path+"mdp-results-model-" + constr)

@@ -14,4 +14,4 @@ for p1 in p:
                 if(cc<=cf):
                     # subprocess.Popen(["python genmodel.py "+str(s) + " " + str(cf) + " " + str(cc) + " 3 normal topo"+ str(s) +"m2 " + str(p1)],shell=True, preexec_fn=os.setpgrp)
 
-                    os.system("python genmodel.py "+str(s) + " " + str(cf) + " " + str(cc) + " 3 normal topo"+str(s) + "m2 " + str(p1))
+                    os.system("python genmodel.py "+str(s) + " " + str(cf) + " " + str(cc) + " 3 normal topo"+str(s) + " " + str(p1))
