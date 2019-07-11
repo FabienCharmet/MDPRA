@@ -29,16 +29,16 @@ Or simply download the source code
 python genmodel.py <topology size> <bf budget> <bc budget> <migration size> <generation mode> <topology file> <detection probability>
 ```
 
-1. <topology size> : Number of nodes in the infrastructure
-2. <bf budget> : Financial budget
-3. <bc budget> : Computational budget
-4. <migration size> : Number of nodes to be migrated (Size of the Virtual Network)
-5. <generation mode> : Type of algorithm used to generate the MDP (available mode: normal)
-6. <topology file> : Description of the physical infrastructureo
-7. <detection probability> : Probability of one monitoring node to detect an attack coming through
+1. \<topology size\> : Number of nodes in the infrastructure
+2. \<bf budget\> : Financial budget
+3. \<bc budget\> : Computational budget
+4. \<migration size\> : Number of nodes to be migrated (Size of the Virtual Network)
+5. \<generation mode\> : Type of algorithm used to generate the MDP (available mode: normal)
+6. \<topology file\> : Description of the physical infrastructureo
+7. \<detection probability\> : Probability of one monitoring node to detect an attack coming through
 
-PLEASE NOTE THAT <topology size> must match the number of nodes in <topology file>
-For example, if <topology size> == 6 then use topo6 or topo6m topology files.
+PLEASE NOTE THAT \<topology size\> must match the number of nodes in \<topology file\>
+For example, if \<topology size\> == 6 then use topo6 or topo6m topology files.
 
 ### Topology file
 
