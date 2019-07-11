@@ -5,6 +5,9 @@ This project generates the MDP states, transition and reward matrixes for the se
 
 ## Prerequisite
 
+PLEASE NOTE THAT THIS TOOL IS INTENDED TO WORK FOR LINUX !
+Implementation for PowerShell on Windows is ongoing.
+
 The installation procedure of the MDP toolbox can be found here:
 
 [https://pymdptoolbox.readthedocs.io/en/latest/index.html] (https://pymdptoolbox.readthedocs.io/en/latest/index.html)
