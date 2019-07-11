@@ -96,6 +96,7 @@ tablefile : Global results of the extraction
 
 Some parameters are hardcoded, such as attack probability, nodes values and migration size for automated result generation.
 For use case reproduction, please use provided files.
-Automated result generation uses parallelization to reduce generation and computation time.
+Automated result generation can use parallelization to reduce generation and computation time.
 This may slow your computer.
-Parallelization can be removed by commenting the subprocess line and changing os.system line accordingly
+Parallelization can be activatin by uncommenting the subprocess line and changing os.system line accordingly
+However, it is highly recommended to limit the number of simultaneous subprocess calls.
