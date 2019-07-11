@@ -471,6 +471,7 @@ execfile(topofile)
 final_counter=0
 nonfinal_counter=0
 runmode=sys.argv[5]
+print("Cleaning previous files, ignore error rm messages")
 os.system("rm " + rootdir+"model_log-"+str(N)+"-"+str(c1_init)+"-"+str(c2_init)+"-"+str(mig_size)+"-"+str(runmode)+"-"+str(topofile)+"-p"+str(p)) 
 if(runmode=="normal"):
     alpha=0.7
