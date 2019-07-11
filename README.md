@@ -22,6 +22,11 @@ Or simply download the source code
 
 ## Usage
 
+NOTE: The scripts often delete generated files to avoid overlapping of generation files.
+Therefore error messages on failed rm commands may happen in case of first time use.
+
+
+
 ### Generatin the MDP files
 
 
