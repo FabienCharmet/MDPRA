@@ -103,6 +103,29 @@ Files must be used in that order to generate appropriate files.
 Please note that they are currently set on the same parameters to be a working example.
 Changes must be made to adapt to your desired parameters.
 
+### Usage
+
+```
+python result_generation.py
+# WAIT
+python mdp_extraction.py
+# WAIT
+python result_extraction.py
+```
+
+
+In order to generate different results automatically here are the variables you must modify in each file:
+
+```
+c1=[30,40] # The array of financial budgets
+c2=[10,20,30,40] # The array of computational budgets
+size=[6] # THe size of the physical infrastructure
+p = [0.5,0.6,0.7,0.8,0.9] # The set of probabilities 
+
+```
+PLEASE NOTE : result_extraction.py only work with one size at a time (i.e. len(size) == 1)
+Reminder: migration size is hardcoded to 3
+
 
 ## Important notes
 
