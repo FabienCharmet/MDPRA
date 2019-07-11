@@ -123,7 +123,9 @@ size=[6] # THe size of the physical infrastructure
 p = [0.5,0.6,0.7,0.8,0.9] # The set of probabilities 
 
 ```
+
 PLEASE NOTE : result_extraction.py only work with one size at a time (i.e. len(size) == 1)
+
 Reminder: migration size is hardcoded to 3
 
 
